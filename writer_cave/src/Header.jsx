@@ -14,7 +14,7 @@ export default function Header() {
     <>
       <div className="font-loader">
     {/* Page title */}
-        <h1 className="header text-white text-center text-2xl">
+        <h1 className="header mt-2 text-white text-center text-2xl">
           The Writer's Cave
         </h1>
 
