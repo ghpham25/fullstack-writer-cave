@@ -22,12 +22,12 @@ export default function Header() {
         <nav className>
             <ul className = " flex justify-center text-white">
                 <li className="mr-3"> 
-                    <a className = "inline-block" href = "#"> My Writings</a>
+                    <a className = "hover:no-underline inline-block" href = "#"> My Writings</a>
                 </li>
                 <li className="mr-3">  
-                <a className = "inline-block" href = "#"> Inspirations</a>
+                <a className = "hover:no-underline inline-block" href = "#"> Inspirations</a>
                 </li>
-                <li className="mr-3"> <a className = "inline-block" href = "#"> Write Anything </a> </li>
+                <li className="mr-3"> <a className = "hover:no-underline inline-block" href = "#"> Write Anything </a> </li>
             </ul>
         </nav>
 
