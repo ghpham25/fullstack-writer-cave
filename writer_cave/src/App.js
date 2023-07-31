@@ -1,15 +1,10 @@
-import Quill from "./Quill";
-import Test from "./test";
-import Test4 from "./Test4";
+import Header from "./Header";
 
 function App() {
+  document.body.style.backgroundColor = "#440a9d"  
   return (
     <>
-      <h2 className="text-red-500"> This is from App </h2>
-      <Test> </Test>
-      <h3> prettier test</h3>
-      <Test4> </Test4>
-      <Quill/>
+    <Header/>
     </>
   );
 }
