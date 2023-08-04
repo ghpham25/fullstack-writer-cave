@@ -3,27 +3,17 @@ import axios from "axios";
 
 export default function Header() {
   //setting Prompt
-  // const [textPromptback, setPromptback] = useState("hello");
-  // useEffect(() => {
-  //   axios.get("http://localhost:5000/api/writing-prompt")
-  //   .then(response => {
-  //     setPromptback(response.data.prompt)
-  //   })
-  //   .catch(error => {
-  //     console.error("Error fetching prompt: ", error)
-  //   })
-  // }, [])
+  const [textPrompt, setPrompt] = useState("");
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/writing-prompt")
+    .then(response => {
+      setPrompt(response.data.generatedPrompt)
+    })
+    .catch(error => {
+      console.error("Error fetching prompt: ", error)
+    })
+  }, [])
 
-  // useEffect(
-  //   () =>
-  //     fetch("/api/writing-prompt")
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         setPromptback(data);
-  //       }),
-  //   []
-  // );
-  let textPrompt = "This is an example prompt";
 
   //showing Prompt
   const [isPromptRevealed, setIsPromptRevealed] = useState(false);
@@ -86,11 +76,11 @@ export default function Header() {
           )}
 
           {isPromptRevealed && !isTextSubmitted && (
-            <div class="relative mb-3 ml-3 mr-2" data-te-input-wrapper-init>
+            <div className="relative mb-3 ml-3 mr-2" data-te-input-wrapper-init>
               <textarea
                 id="message"
                 rows="4"
-                class="h-80 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="h-80 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Write your thoughts here..."
                 disabled={isTextSubmitted}
               ></textarea>

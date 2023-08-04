@@ -6,9 +6,9 @@ function App() {
   document.body.style.backgroundColor = "#708dee"
   return (
     <>
-    {/* <Header/> */}
-    <Test/>
-    {/* <Question/> */}
+    <Header/>
+    {/* <Test/> */}
+    <Question/>
     </>
   );
 }
