@@ -1,11 +1,28 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const mongoose = require('mongoose')
+const axios = require('axios'); // Use require for importing modules
 
 app.use(cors());
 require("dotenv").config();
-const axios = require('axios'); // Use require for importing modules
 
+/* Connect to MongoDB database */
+const MongoDBpassword = process.env.MONGODB_PASSWORD
+const uri = `mongodb+srv://giangpham:mypassword@cluster0.v0bfe8j.mongodb.net/?retryWrites=true&w=majority`;
+
+async function connect() {
+  try {
+    await mongoose.connect(uri)
+    console.log("Connected to MongoDB")
+  } catch(error) {
+    console.log("Error connecting to MongoDB: ", error)
+  }
+}
+
+connect()
+
+/* Connect to OpenAI API */ 
 // Use a different route name like "/api/writing-prompt"
 app.get('/api/writing-prompt', async (req, res) => {
   // const prompt = "Give me a short writing prompt on a creative topic"
@@ -22,33 +39,15 @@ app.get('/api/writing-prompt', async (req, res) => {
     temperature: 0.5
   }
 
-  // try {
-
-  //   const response = await client.post("https://api.openai.com/v1/chat/completions", params)
-  
-  //   const generatedPrompt = response.data['choices'][0]['message']['content']
-  
-  //   res.json({prompt: generatedPrompt})
-
-  // } catch (error) {
-  //   console.error("Error generating prompt: ", error)
-  // }
-
   client
   .post("https://api.openai.com/v1/chat/completions", params)
   .then((response) => {
-    // console.log(response)
-    // console.log(response.data['choices'][0]['message']['content']);
     const generatedPrompt = response.data['choices'][0]['message']['content']
     res.json({generatedPrompt})
   })
   .catch((err) => {
-    console.log("error:", err);
+    console.log("Error generating prompt:", err);
   });
-
-  // //example prompt for simplicity
-  // const prompt = 'This is a prompt fetched from the backend';
-  // res.json({prompt});
 });
 
 app.listen(5000, () => {

@@ -4,16 +4,16 @@ import axios from "axios";
 export default function Header() {
   //setting Prompt
   const [textPrompt, setPrompt] = useState("");
-  useEffect(() => {
-    axios.get("http://localhost:5000/api/writing-prompt")
-    .then(response => {
-      setPrompt(response.data.generatedPrompt)
-    })
-    .catch(error => {
-      console.error("Error fetching prompt: ", error)
-    })
-  }, [])
-
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5000/api/writing-prompt")
+  //     .then((response) => {
+  //       setPrompt(response.data.generatedPrompt);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching prompt: ", error);
+  //     });
+  // }, []);
 
   //showing Prompt
   const [isPromptRevealed, setIsPromptRevealed] = useState(false);
@@ -22,6 +22,14 @@ export default function Header() {
     // let newPrompt = "This is an example prompt";
     // setText(newPrompt);
     setIsPromptRevealed(true);
+    axios
+    .get("http://localhost:5000/api/writing-prompt")
+    .then((response) => {
+      setPrompt(response.data.generatedPrompt);
+    })
+    .catch((error) => {
+      console.error("Error fetching prompt: ", error);
+    });
   };
 
   const [isTextSubmitted, setIsTextSubmitted] = useState(false);
@@ -53,7 +61,7 @@ export default function Header() {
             <div id="revealButtons" className="">
               <button
                 onClick={showPrompt}
-                className="bg-blue-500 focus:bg-blue-800 border-none text-white on-clv hover:bg-blue-800 reveal w-10 py-2 px-2 rounded-lg mr-2"
+                className="bg-blue-500 focus:bg-blue-800 border-none text-white on-clv hover:bg-blue-800 rounded-lg reveal w-10 py-2 px-2  mr-2"
               >
                 {" "}
                 Yes
