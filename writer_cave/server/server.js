@@ -3,14 +3,17 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose')
 const axios = require('axios'); // Use require for importing modules
-
+const { generateWritingPrompt } = require('./openai'); // Import the generateWritingPrompt function
+const {insertPromptAnswer} = require('./database')
 app.use(cors());
 require("dotenv").config();
 
 /* Connect to MongoDB database */
 const MongoDBpassword = process.env.MONGODB_PASSWORD
-const uri = `mongodb+srv://giangpham:mypassword@cluster0.v0bfe8j.mongodb.net/?retryWrites=true&w=majority`;
+// const uri = `mongodb+srv://giangpham:mypassword@cluster0.v0bfe8j.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://giangpham:mypassword@cluster0.v0bfe8j.mongodb.net/homepage?retryWrites=true&w=majority`;
 
+/* Connecting to mongoDB homepage database  */
 async function connect() {
   try {
     await mongoose.connect(uri)
@@ -19,35 +22,27 @@ async function connect() {
     console.log("Error connecting to MongoDB: ", error)
   }
 }
-
 connect()
 
-/* Connect to OpenAI API */ 
-// Use a different route name like "/api/writing-prompt"
-app.get('/api/writing-prompt', async (req, res) => {
-  // const prompt = "Give me a short writing prompt on a creative topic"
-  const apiKey = process.env.OPENAI_API_KEY
-  const client = axios.create({
-    headers:{
-      Authorization: `Bearer ${apiKey}`,
-    }
-  })
-
-  const params = {
-    model: "gpt-3.5-turbo",
-    messages: [{"role": "user", "content": "Give me a short and creative short writing prompt"}],
-    temperature: 0.5
+/* Route to insert a new prompt-answer pair into the "prompt_answer" collection */
+app.post('/api/submit-prompt-answer', async(req, res) => {
+  try {
+    const {prompt, answer} = req.body;
+    const promptAnswer = await insertPromptAnswer(prompt, answer)
+    res.json({promptAnswer})
+  } catch(error) {
+    res.json({error: "Error submitting prompt and answer"})
   }
+})
 
-  client
-  .post("https://api.openai.com/v1/chat/completions", params)
-  .then((response) => {
-    const generatedPrompt = response.data['choices'][0]['message']['content']
-    res.json({generatedPrompt})
-  })
-  .catch((err) => {
-    console.log("Error generating prompt:", err);
-  });
+// Route to generate a writing prompt using the OpenAI API
+app.get('/api/writing-prompt', async (req, res) => {
+  try {
+    const generatedPrompt = await generateWritingPrompt();
+    res.json({ generatedPrompt });
+  } catch (error) {
+    res.status(500).json({ error: 'Error generating prompt' });
+  }
 });
 
 app.listen(5000, () => {
