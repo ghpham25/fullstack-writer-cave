@@ -9,14 +9,15 @@ const promptAnswerSchema = new Schema ({
 })
 
 //Create a model based on the Schema 
-const PromptAnswer = mongoose.model("PromptAnswer", promptAnswerSchema, "prompt_answer")
+const PromptAnswer = mongoose.model("PromptAnswer", promptAnswerSchema, "prompt_response")
 
 //Insert a new prompt-answer pair in the prompt_answer collection
 async function insertPromptAnswer(prompt, answer) {
     try {
-        const PromptAnswer = new PromptAnswer({prompt, answer});
-        await PromptAnswer.save();
-        return PromptAnswer;
+        const promptanswer = new PromptAnswer({prompt, answer});
+        // const promptanswer = new PromptAnswer({prompt: "trial", answer: "trial"})
+        await promptanswer.save();
+        return promptanswer;
     } catch (error) {
         console.error("Error inserting prompt answer: ", error)
     }

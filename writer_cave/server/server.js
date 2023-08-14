@@ -7,16 +7,21 @@ const { generateWritingPrompt } = require('./openai'); // Import the generateWri
 const {insertPromptAnswer} = require('./database')
 app.use(cors());
 require("dotenv").config();
+app.use(express.json());
+
 
 /* Connect to MongoDB database */
 const MongoDBpassword = process.env.MONGODB_PASSWORD
 // const uri = `mongodb+srv://giangpham:mypassword@cluster0.v0bfe8j.mongodb.net/?retryWrites=true&w=majority`;
-const uri = `mongodb+srv://giangpham:mypassword@cluster0.v0bfe8j.mongodb.net/homepage?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://giangpham:${MongoDBpassword}@cluster0.v0bfe8j.mongodb.net/homepage?retryWrites=true&w=majority`;
 
 /* Connecting to mongoDB homepage database  */
 async function connect() {
   try {
-    await mongoose.connect(uri)
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
     console.log("Connected to MongoDB")
   } catch(error) {
     console.log("Error connecting to MongoDB: ", error)
@@ -28,6 +33,8 @@ connect()
 app.post('/api/submit-prompt-answer', async(req, res) => {
   try {
     const {prompt, answer} = req.body;
+    console.log('Received prompt:', prompt);
+    console.log('Received answer:', answer);
     const promptAnswer = await insertPromptAnswer(prompt, answer)
     res.json({promptAnswer})
   } catch(error) {
