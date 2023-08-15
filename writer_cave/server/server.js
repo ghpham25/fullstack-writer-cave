@@ -4,7 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const axios = require("axios"); // Use require for importing modules
 const { generateWritingPrompt } = require("./openai"); // Import the generateWritingPrompt function
-const { insertPromptAnswer, fetchAllPromptAnswers } = require("./database");
+const { insertPromptAnswer, fetchAllPromptAnswers, deletePromptAnswer} = require("./database");
 app.use(cors());
 require("dotenv").config();
 app.use(express.json());
@@ -60,6 +60,16 @@ app.get("/api/saved-prompt-answers", async(req, res) => {
     res.status(500).json({ error: "Error fetching prompts" });
   }
 })
+
+app.delete('/api/saved-prompt-answers/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    await deletePromptAnswer(id);
+    res.sendStatus(204); // Successful deletion, no content
+  } catch (error) {
+    console.error('Error deleting prompt: ', error);
+  }
+});
 
 app.listen(5000, () => {
   console.log("Server started on port 5000");

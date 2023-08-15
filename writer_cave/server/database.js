@@ -32,7 +32,16 @@ async function fetchAllPromptAnswers() {
     }
 }
 
+async function deletePromptAnswer(id) {
+    try {
+        await PromptAnswer.findByIdAndDelete(id)
+    }catch (error) {
+        console.error('Error deleting prompt: ', error);
+      }
+}
+
 module.exports = {
     insertPromptAnswer,
     fetchAllPromptAnswers,
+    deletePromptAnswer,
 }

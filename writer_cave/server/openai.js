@@ -15,7 +15,7 @@ async function generateWritingPrompt() {
       messages: [
         {
           role: "user",
-          content: "Give me a short and creative writing prompt",
+          content: "Give me a very short writing prompt",
         },
       ],
       temperature: 0.5,
