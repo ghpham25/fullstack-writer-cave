@@ -23,6 +23,16 @@ async function insertPromptAnswer(prompt, answer) {
     }
 }
 
+async function fetchAllPromptAnswers() {
+    try {
+        const fetched = await PromptAnswer.find()
+        return fetched
+    } catch (error) {
+        console.error("Error fetching all prompt answers: ", error)
+    }
+}
+
 module.exports = {
     insertPromptAnswer,
+    fetchAllPromptAnswers,
 }
