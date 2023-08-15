@@ -1,14 +1,23 @@
 import Header from "./components/Header";
-import Question from "./components/Question";
+import Home from "./pages/Home";
+import Inspiration from "./pages/Inspiration";
+import MyWriting from "./pages/MyWriting";
+import FreeWriting from "./pages/FreeWriting";
+
 import Test from "./components/Test";
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
-  document.body.style.backgroundColor = "#708dee"
+  document.body.style.backgroundColor = "#708dee";
   return (
     <>
-    <Header/>
-    {/* <Test/> */}
-    <Question/>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/mywriting" element={<MyWriting />} />
+        <Route path="/inspo" element={<Inspiration />} />
+        <Route path="/freewrite" element={<FreeWriting />} />
+      </Routes>
     </>
   );
 }

@@ -13,7 +13,7 @@ app.use(express.json());
 /* Connect to MongoDB database */
 const MongoDBpassword = process.env.MONGODB_PASSWORD
 // const uri = `mongodb+srv://giangpham:mypassword@cluster0.v0bfe8j.mongodb.net/?retryWrites=true&w=majority`;
-const uri = `mongodb+srv://giangpham:${MongoDBpassword}@cluster0.v0bfe8j.mongodb.net/homepage?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://giangpham:mypassword@cluster0.v0bfe8j.mongodb.net/homepage?retryWrites=true&w=majority`;
 
 /* Connecting to mongoDB homepage database  */
 async function connect() {
