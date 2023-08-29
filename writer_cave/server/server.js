@@ -32,8 +32,8 @@ connect();
 app.post("/api/submit-prompt-answer", async (req, res) => {
   try {
     const { prompt, answer } = req.body;
-    console.log("Received prompt:", prompt);
-    console.log("Received answer:", answer);
+    // console.log("Received prompt:", prompt);
+    // console.log("Received answer:", answer);
     const promptAnswer = await insertPromptAnswer(prompt, answer);
     res.json({ promptAnswer });
   } catch (error) {

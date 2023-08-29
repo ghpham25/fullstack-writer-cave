@@ -18,7 +18,7 @@ async function generateWritingPrompt() {
           content: "Give me a very short writing prompt",
         },
       ],
-      temperature: 0.5,
+      temperature: 0.8,
     };
 
     const response = await client.post(
