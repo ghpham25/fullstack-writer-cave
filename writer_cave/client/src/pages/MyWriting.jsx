@@ -6,7 +6,7 @@ export default function MyWriting() {
   const [data, setData] = useState([]);
 
   const handleDelete = (dataId) => {
-    // Make a DELETE request to your backend API
+    // Make a DELETE request to backend API
     axios
       .delete(`http://localhost:5000/api/saved-prompt-answers/${dataId}`)
       .then(() => {
@@ -25,7 +25,6 @@ export default function MyWriting() {
       .get("http://localhost:5000/api/saved-prompt-answers")
       .then((response) => {
         setData(response.data.fetchedPromptAnswers.reverse()); // Assuming the data is an array of objects
-        // console.log(response.data.fetchedPromptAnswers);
       })
       .catch((error) => {
         console.error("Error fetching saved data: ", error);

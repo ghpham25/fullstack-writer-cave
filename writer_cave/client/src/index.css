@@ -8,16 +8,30 @@
 
 .expanded {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  text-decoration: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the element horizontally and vertically */
+  width: 90vw;
+  height: 90vh;
+  background-color: white; /* Use the appropriate color value */
+  border: 1px solid var(--slate-300); /* Use the appropriate color value */
+  padding: 4rem;
+  gap: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* Use appropriate box shadow values */
+  z-index: 9999;
+}
+
+.button-mw {
+  padding: 0.2rem;
+  border-radius: 0.375rem;
+  background-color: rgb(203 213 225);
+  transition-duration: 300ms;
+}
+
+.button-mw:hover {
+  background-color: rgb(71 85 105);
+  color: rgb(226 232 240);
 }
 
 
