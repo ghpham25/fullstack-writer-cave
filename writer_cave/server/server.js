@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const axios = require("axios"); // Use require for importing modules
 const { generateWritingPrompt } = require("./openai"); // Import the generateWritingPrompt function
 const { insertPromptAnswer, fetchAllPromptAnswers, deletePromptAnswer} = require("./database");
+const {insertUserData, verifyUserData} = require("./userdata")
 app.use(cors());
 require("dotenv").config();
 app.use(express.json());
@@ -27,6 +28,27 @@ async function connect() {
   }
 }
 connect();
+
+//User data
+app.post("/api/sign-up", async (req, res) => {
+  try {
+    const { firstName, lastName, email, password } = req.body;
+    const userData = await insertUserData(firstName, lastName, email, password);
+    res.json({ userData });
+  } catch (error) {
+    res.json({ error: "Error signing up" });
+  }
+});
+
+app.post("/api/log-in", async (req, res) => {
+  try {
+    const {email, password } = req.body;
+    const isPasswordValid = await verifyUserData(email, password);
+    res.json({ isPasswordValid });
+  } catch (error) {
+    res.json({ error: "Error signing up" });
+  }
+});
 
 /* Route to insert a new prompt-answer pair into the "prompt_answer" collection */
 app.post("/api/submit-prompt-answer", async (req, res) => {

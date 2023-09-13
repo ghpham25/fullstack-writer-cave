@@ -4,6 +4,8 @@ import Inspiration from "./pages/Inspiration";
 import MyWriting from "./pages/MyWriting";
 import FreeWriting from "./pages/FreeWriting";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+
 import Test from "./components/Test";
 
 import { Routes, Route } from 'react-router-dom';
@@ -19,9 +21,12 @@ function App() {
 
   return (
     <ThemeProvider theme = {theme}>
-      <Login/>
+      {/* <SignUp/>
+      <Login/> */}
       {/* <Header /> */}
       <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/SignUp" element={<SignUp />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/mywriting" element={<MyWriting />} />
         <Route path="/inspo" element={<Inspiration />} />

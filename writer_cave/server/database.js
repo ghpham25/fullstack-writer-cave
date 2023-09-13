@@ -44,4 +44,5 @@ module.exports = {
     insertPromptAnswer,
     fetchAllPromptAnswers,
     deletePromptAnswer,
+    PromptAnswer,
 }
